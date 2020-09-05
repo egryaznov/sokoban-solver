@@ -11,18 +11,22 @@ import java.util.Set;
 public final class CharModelFactory implements ModelFactory
 {
 
-    public static CharModelFactory fromFile(final String filename)
+    public static CharModelFactory fromPath(final Path pathToFile)
     {
         try
         {
-            final Path toFile = Paths.get("C:\\Users\\egryazn\\Home\\untitled\\fields", filename + ".txt");
-            return new CharModelFactory(Files.readAllLines(toFile));
+            return new CharModelFactory(Files.readAllLines(pathToFile));
         }
         catch (IOException io)
         {
             System.out.println("Не получилось прочитать из файла");
             throw new IllegalStateException(io);
         }
+    }
+
+    public static CharModelFactory fromFile(final String fullPathToFile)
+    {
+        return fromPath(Paths.get(fullPathToFile));
     }
 
     private final List<String> charLines;
