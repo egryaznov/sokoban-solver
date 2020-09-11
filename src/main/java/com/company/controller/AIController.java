@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.ai.Solver;
 import com.company.model.Sokoban;
 import com.company.model.Move;
 import com.company.view.View;
@@ -12,24 +13,26 @@ public class AIController implements Controller
     private final View view;
     private final Sokoban sokoban;
     private final int waitTimeInMillis;
+    private final Solver solver;
 
-    public AIController(final Sokoban sokoban, final View view, final int waitTimeInMillis)
+    public AIController(final Sokoban sokoban, final View view, final int waitTimeInMillis, final Solver solver)
     {
         this.view = view;
         this.sokoban = sokoban;
         this.waitTimeInMillis = waitTimeInMillis;
+        this.solver = solver;
     }
 
     @Override
     public void run()
     {
-        System.out.println("AI starts solving");
-        final List<Move> solution = sokoban.solve();
+        view.say("AI starts solving using " + solver.getClass().getName());
+        final List<Move> solution = solver.solve(sokoban);
         if (solution.isEmpty())
-            System.out.println("Solution not found, exiting");
+            view.say("Solution not found, exiting");
         else
         {
-            System.out.println("Solution found, playing...");
+            view.say("Solution found, playing...");
             sleep();
             view.render();
             for (Move move : solution)
@@ -38,7 +41,8 @@ public class AIController implements Controller
                 view.render();
                 sleep();
             }
-            System.out.println("Done. Moves are: " + Move.compress(solution));
+            view.say("Done. Moves are: " + Move.compress(solution));
+            view.say("Length: " + solution.size());
         }
     }
 

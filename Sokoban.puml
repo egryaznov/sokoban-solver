@@ -1,0 +1,105 @@
+@startuml
+
+package "View"
+{
+    interface View
+    {
+        + void render(Sokoban model)
+        + void say(String message)
+    }
+    class ConsoleView
+    {
+        - model : Sokoban
+        + void render()
+        + void say(String message)
+    }
+    View <|.. ConsoleView
+}
+
+package "Controller"
+{
+    interface Controller
+    {
+        + void run()
+    }
+    class ConsoleController
+    {
+        - model : Sokoban
+        - view : View
+        + void run()
+    }
+    class AIController
+    {
+        - model : Sokoban
+        - view : View
+        - solver : Solver
+        + void run()
+    }
+    Controller <|.. ConsoleController
+    Controller <|.. AIController
+    View <-- ConsoleController
+    View <-- AIController
+}
+
+package "AI"
+{
+    interface Solver
+    {
+        + List<Move> solve(Sokoban model)
+    }
+    class AStarSolver
+    {
+        + List<Move> solve(Sokoban model)
+    }
+    class BFSolver
+    {
+        + List<Move> solve(Sokoban model)
+    }
+    Solver <|.. AStarSolver
+    Solver <|.. BFSolver
+    Solver <-- AIController
+}
+
+package Model
+{
+    class Sokoban
+    {
+        - field : Field
+        - crates : Set<Point>
+        - marks : Set<Point>
+        - player : Point
+        + move(Point delta)
+        + getPlayer() : Point
+        + getCrates() : Set<Point>
+        + getMarks() : Set<Point>
+        + tile(Point at) : Tile
+    }
+    class Point <<Immutable>>
+    {
+        - row : int
+        - col : int
+        + row() : int
+        + col() : int
+    }
+    class Field <<Immutable>>
+    {
+        - tiles : Tile[][]
+        + Tile tileAt(Point at)
+    }
+    Field --* Sokoban
+    Sokoban --> Point
+    enum Tile
+    {
+        + WALL
+        + GRASS
+        + CRATE
+        + MARK
+        + PLAYER
+    }
+    Field --> Tile
+}
+
+ConsoleController --> Sokoban
+AIController --> Sokoban
+ConsoleView --> Sokoban
+@enduml

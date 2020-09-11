@@ -1,0 +1,17 @@
+ a1.txt | -2 | 49,09 millis
+ a11.txt | -26 | -11910,59 millis
+ a13.txt | 15 | -14295,60 millis
+ a15.txt | -4 | -965,95 millis
+ a2.txt | -2 | -4150,92 millis
+ a3.txt | -3 | -2,02 millis
+ a4.txt | -1 | -10,92 millis
+ a5.txt | -7 | -454,63 millis
+ a6.txt | 0 | 96,57 millis
+ a7.txt | 4 | -110,76 millis
+ a8.txt | -4 | -91408,79 millis
+ a9.txt | 6 | -101151,48 millis
+ 1.txt | 0 | 0,01 millis
+ 2.txt | -2 | 0,23 millis
+ 3.txt | 1 | 11,69 millis
+ 4.txt | 0 | 0,26 millis
+ 5.txt | -2 | 0,31 millis

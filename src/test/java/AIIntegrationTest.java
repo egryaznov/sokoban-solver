@@ -1,4 +1,5 @@
-import com.company.model.CharModelFactory;
+import com.company.ai.BFSolver;
+import com.company.model.CharSokobanFactory;
 import com.company.model.Move;
 import com.company.model.Sokoban;
 import org.junit.Test;
@@ -30,9 +31,9 @@ public class AIIntegrationTest
                         return;
                     }
                     System.out.println("Solving " + path.getFileName());
-                    final Sokoban sokoban = CharModelFactory.fromPath(path).make();
+                    final Sokoban sokoban = CharSokobanFactory.fromPath(path).make();
                     final long time = System.nanoTime();
-                    final List<Move> solution = sokoban.solve();
+                    final List<Move> solution = new BFSolver().solve(sokoban);
                     final long done = System.nanoTime();
                     solution.forEach(move -> move.perform(sokoban));
                     assertTrue(sokoban.solved());
@@ -51,8 +52,8 @@ public class AIIntegrationTest
                 {
                     if (!path.toFile().isFile())
                         return;
-                    final Sokoban sokoban = CharModelFactory.fromPath(path).make();
-                    final List<Move> solution = sokoban.solve();
+                    final Sokoban sokoban = CharSokobanFactory.fromPath(path).make();
+                    final List<Move> solution = new BFSolver().solve(sokoban);
                     assertTrue(solution.isEmpty());
                 });
     }
@@ -65,9 +66,9 @@ public class AIIntegrationTest
                 {
                     if (!path.toFile().isFile())
                         return;
-                    final Sokoban sokoban = CharModelFactory.fromPath(path).make();
+                    final Sokoban sokoban = CharSokobanFactory.fromPath(path).make();
                     final long time = System.nanoTime();
-                    final List<Move> solution = sokoban.solve();
+                    final List<Move> solution = new BFSolver().solve(sokoban);
                     final long done = System.nanoTime();
                     solution.forEach(move -> move.perform(sokoban));
                     assertTrue(sokoban.solved());

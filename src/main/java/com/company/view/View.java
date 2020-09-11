@@ -1,9 +1,10 @@
 package com.company.view;
 
-@FunctionalInterface
 public interface View
 {
 
     void render();
+
+    void say(final String message);
 
 }

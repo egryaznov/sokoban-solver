@@ -23,7 +23,7 @@ public class ConsoleController implements Controller
     @Override
     public void run()
     {
-        System.out.println("Sokoban Starts");
+        view.say("Sokoban Starts");
         char symbol = '0';
         view.render();
         final List<Move> history = new LinkedList<>();
@@ -37,7 +37,7 @@ public class ConsoleController implements Controller
                 view.render();
                 if (sokoban.solved())
                 {
-                    System.out.println("YOU WIN!");
+                    view.say("YOU WIN!");
                     break;
                 }
             }
@@ -47,11 +47,11 @@ public class ConsoleController implements Controller
             }
             catch (IOException io)
             {
-                System.out.println("Не получилось считать команду:");
+                view.say("Не получилось считать команду:");
                 throw new IllegalStateException(io);
             }
         }
-        System.out.println("Your moves: " +  Move.compress(history));
+        view.say("Your moves: " +  Move.compress(history));
     }
 
 }

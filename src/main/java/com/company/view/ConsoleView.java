@@ -37,10 +37,18 @@ public class ConsoleView implements View
             {
                 final Point at = new Point(i, j);
                 final Tile tileAt = sokoban.tile(at);
-                final char symbolToPrint = tileAt == Tile.CRATE && sokoban.isMarkAt(at) ? 'G' : tileAt.symbol();
+                if (tileAt == null)
+                    break;
+                final char symbolToPrint = tileAt == Tile.CRATE && sokoban.isMarkAt(at) ? Tile.CRATE_ON_MARK.symbol() : tileAt.symbol();
                 System.out.print(symbolToPrint);
             }
             System.out.println();
         }
+    }
+
+    @Override
+    public void say(String message)
+    {
+        System.out.println(message);
     }
 }

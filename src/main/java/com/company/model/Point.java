@@ -22,6 +22,11 @@ public class Point
         this.col = col;
     }
 
+    public int distance(final Point other)
+    {
+        return Math.abs(this.row - other.row) + Math.abs(this.col - other.col);
+    }
+
     public int row()
     {
         return row;

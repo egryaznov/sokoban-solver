@@ -1,6 +1,6 @@
 package com.company.model;
 
-public interface ModelFactory
+public interface SokobanFactory
 {
 
     Sokoban make();

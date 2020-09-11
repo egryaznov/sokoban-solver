@@ -8,14 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class CharModelFactory implements ModelFactory
+public final class CharSokobanFactory implements SokobanFactory
 {
 
-    public static CharModelFactory fromPath(final Path pathToFile)
+    public static CharSokobanFactory fromPath(final Path pathToFile)
     {
         try
         {
-            return new CharModelFactory(Files.readAllLines(pathToFile));
+            return new CharSokobanFactory(Files.readAllLines(pathToFile));
         }
         catch (IOException io)
         {
@@ -24,14 +24,14 @@ public final class CharModelFactory implements ModelFactory
         }
     }
 
-    public static CharModelFactory fromFile(final String fullPathToFile)
+    public static CharSokobanFactory fromFile(final String fullPathToFile)
     {
         return fromPath(Paths.get(fullPathToFile));
     }
 
     private final List<String> charLines;
 
-    public CharModelFactory(final List<String> charLines)
+    public CharSokobanFactory(final List<String> charLines)
     {
         this.charLines = charLines;
     }
@@ -78,6 +78,6 @@ public final class CharModelFactory implements ModelFactory
             atRow++;
             atCol = 0;
         }
-        return new Sokoban(new CharField(tiles), crates, marks, player);
+        return new Sokoban(new Field(tiles), crates, marks, player);
     }
 }

@@ -1,0 +1,16 @@
+@startuml
+
+interface SokobanFactory
+{
+    + Sokoban make()
+}
+class CharSokobanFactory
+{
+    + {static} CharSokobanFactory fromFile(File level)
+    - List<String> charLines
+    + Sokoban make()
+}
+
+CharSokobanFactory ..|> SokobanFactory
+
+@enduml
