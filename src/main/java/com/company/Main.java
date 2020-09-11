@@ -5,11 +5,13 @@ import com.company.ai.BFSolver;
 import com.company.ai.Solver;
 import com.company.controller.AIController;
 import com.company.controller.ConsoleController;
+import com.company.controller.Controller;
 import com.company.model.CharSokobanFactory;
 import com.company.model.Move;
 import com.company.model.Pair;
 import com.company.model.Sokoban;
 import com.company.view.ConsoleView;
+import com.company.view.View;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,14 +44,18 @@ public class Main
             System.out.println("Enter filename as first arg");
             return;
         }
-        final Sokoban sokoban = CharSokobanFactory.fromFile(FULL_PATH_TO_FIELDS_DIR + args[0] + ".txt").make();
+        final Sokoban sokoban = CharSokobanFactory.fromFile(args[0]).make();
+        final View view = new ConsoleView(sokoban);
+        final Controller game;
         if (args.length == 1)
-            new ConsoleController(sokoban, new ConsoleView(sokoban)).run();
+            game = new ConsoleController(sokoban, view);
         else
         {
-            final Solver solver = args[1].length() > 1 ? new BFSolver() : new AStarSolver();
-            new AIController(sokoban, new ConsoleView(sokoban), 300, solver).run();
+            final Solver solver = "astar".equals(args[1]) ? new AStarSolver() : new BFSolver();
+            game = new AIController(sokoban, view, 300, solver);
         }
+        //
+        game.run();
     }
 
     private static void benchmark() throws IOException
